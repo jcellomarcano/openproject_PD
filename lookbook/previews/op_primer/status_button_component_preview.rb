@@ -10,21 +10,29 @@ module OpPrimer
     # @param size [Symbol] select [small, medium, large]
     def playground(readonly: false, disabled: false, size: :medium)
       status = OpPrimer::StatusButtonOption.new(name: "Open",
-                                                color: FactoryBot.build(:color_maroon),
                                                 tag: :a,
+                                                content_arguments: {
+                                                  classes: "__hl_inline_meeting_status_open"
+                                                },
                                                 href: "/some/test")
       items = [
         status,
         OpPrimer::StatusButtonOption.new(name: "Closed",
-                                         color: FactoryBot.build(:color_green),
                                          tag: :a,
+                                         content_arguments: {
+                                           classes: "__hl_inline_meeting_status_closed"
+                                         },
                                          href: "/some/other/action")
       ]
       component = OpPrimer::StatusButtonComponent.new(current_status: status,
                                                       items:,
                                                       readonly:,
                                                       disabled:,
-                                                      button_arguments: { title: "Edit", size: })
+                                                      button_arguments: {
+                                                        title: "Edit",
+                                                        size:,
+                                                        classes: "__hl_background_meeting_status_open"
+                                                      })
 
       render(component)
     end
@@ -32,11 +40,11 @@ module OpPrimer
     # See the [component documentation](/lookbook/pages/components/status_button) for more details.
     # @display min_height 200px
     def with_icon(size: :medium)
-      status = OpPrimer::StatusButtonOption.new(name: "Open", icon: :unlock, color: Color.new(hexcode: "#FF0000"))
+      status = OpPrimer::StatusButtonOption.new(name: "Open", icon: :unlock)
 
       items = [
         status,
-        OpPrimer::StatusButtonOption.new(name: "Closed", icon: :lock, color: Color.new(hexcode: "#00FF00"))
+        OpPrimer::StatusButtonOption.new(name: "Closed", icon: :lock)
       ]
 
       component = OpPrimer::StatusButtonComponent.new(current_status: status,
@@ -52,15 +60,13 @@ module OpPrimer
     def with_description(size: :medium)
       status = OpPrimer::StatusButtonOption.new(name: "Open",
                                                 icon: :unlock,
-                                                description: "The status is open",
-                                                color: Color.new(hexcode: "#FF0000"))
+                                                description: "The status is open")
 
       items = [
         status,
         OpPrimer::StatusButtonOption.new(name: "Closed",
                                          icon: :lock,
-                                         description: "The status is closed",
-                                         color: Color.new(hexcode: "#00FF00"))
+                                         description: "The status is closed")
       ]
 
       component = OpPrimer::StatusButtonComponent.new(current_status: status,

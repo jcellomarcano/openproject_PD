@@ -43,12 +43,19 @@ module Meetings
     end
 
     def call
-      render(OpPrimer::StatusButtonComponent.new(current_status: current_status,
-                                                 items: [open_status, in_progress_status, closed_status],
-                                                 readonly: !edit_enabled?,
-                                                 disabled: !edit_enabled?,
-                                                 button_arguments: { title: t("label_meeting_state"), size: @size },
-                                                 menu_arguments: { size: :small }))
+      render(
+        OpPrimer::StatusButtonComponent.new(
+          current_status: current_status,
+          items: [open_status, in_progress_status, closed_status],
+          readonly: !edit_enabled?,
+          disabled: !edit_enabled?,
+          button_arguments: {
+            classes: helpers.hl_background_class("meeting_status", current_status),
+            title: t("label_meeting_state"),
+            size: @size
+          },
+                                                 menu_arguments: { size: :small })
+      )
     end
 
     private
@@ -69,8 +76,8 @@ module Meetings
     end
 
     def open_status
-      OpPrimer::StatusButtonOption.new(name: t("label_meeting_state_open"),
-                                       color: Color.new(hexcode: "#1F883D"),
+      OpPrimer::StatusButtonOption.new(id: Meetings::Statuses::OPEN.id,
+                                       name: t("label_meeting_state_open"),
                                        icon: :"issue-opened",
                                        tag: :a,
                                        description: t("text_meeting_open_dropdown_description"),
@@ -81,8 +88,8 @@ module Meetings
     end
 
     def in_progress_status
-      OpPrimer::StatusButtonOption.new(name: t("label_meeting_state_in_progress"),
-                                       color: Color.new(hexcode: "#9A6700"),
+      OpPrimer::StatusButtonOption.new(id: Meetings::Statuses::IN_PROGRESS.id,
+                                       name: t("label_meeting_state_in_progress"),
                                        icon: :play,
                                        tag: :a,
                                        description: t("text_meeting_in_progress_dropdown_description"),
@@ -93,8 +100,8 @@ module Meetings
     end
 
     def closed_status
-      OpPrimer::StatusButtonOption.new(name: t("label_meeting_state_closed"),
-                                       color: Color.new(hexcode: "#6E7781 "),
+      OpPrimer::StatusButtonOption.new(id: Meetings::Statuses::CLOSED.id,
+                                       name: t("label_meeting_state_closed"),
                                        icon: :"issue-closed",
                                        tag: :a,
                                        description: t("text_meeting_closed_dropdown_description"),
