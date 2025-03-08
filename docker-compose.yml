@@ -80,7 +80,7 @@ services:
     command: "node --max_old_space_size=8096 ./node_modules/@angular/cli/bin/ng serve --host 0.0.0.0 --public-host ${OPENPROJECT_DEV_URL}"
     volumes:
       - ".:/home/dev/openproject"
-      - "${CKEDITOR_BUILD_DIR:-./frontend/src/vendor/ckeditor}:/home/dev/openproject/frontend/src/vendor/ckeditor"
+      - "${CKEDITOR_BUILD_DIR:-${PWD}/frontend/src/vendor/ckeditor}:/home/dev/openproject/frontend/src/vendor/ckeditor"
     environment:
       PROXY_HOSTNAME: backend
     networks:
